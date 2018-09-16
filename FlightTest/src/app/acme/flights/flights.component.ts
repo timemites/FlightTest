@@ -150,7 +150,7 @@ export class FlightsComponent implements OnInit {
 
       this.bookingDetail2.BookingDate = this.travelDate;
       this.bookingDetail2.FlightId = this.flight;
-      this.bookingDetail.FlightName = this.selectedFlight;
+      this.bookingDetail2.FlightName = this.selectedFlight;
       this.bookingDetail2.FirstName = this.FirstName2;
       this.bookingDetail2.LastName = this.LastName2;
       this.bookingDetail2.Email = this.Email2;

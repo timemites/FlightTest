@@ -9,19 +9,29 @@ using System.IO;
 using Newtonsoft.Json.Linq;
 using System.Web.Http.Cors;
 using FlightTestAPI.Models;
+using FlightTestAPI.Repository;
 
 namespace FlightTestAPI.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class FlightsController : ApiController
     {
+        private IRepository _repository;
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        public FlightsController(IRepository repository)
+        {
+            this._repository = repository;
+        }
+      
         // GET ALL FLIGHTS FROM CSV
 
         //http://localhost:4200/Flight
         public IEnumerable<Flights> Get()
         {
-            List<Flights> flights = new List<Flights>();
+            try
+            {
+                List<Flights> flights = new List<Flights>();
 
             string path = System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/");
             string filePath = path + "Flights.csv";
@@ -43,6 +53,11 @@ namespace FlightTestAPI.Controllers
                 }
             }
             return flights;
+            }
+            catch
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
         }
 
         // GET: api/Flights/5
@@ -51,6 +66,18 @@ namespace FlightTestAPI.Controllers
             return "value";
         }
 
+       
+        public HttpResponseMessage FlightList()
+        {
+            try
+            {
+                return _repository.FlightList();
+            }
+            catch
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
+        }
         // POST: api/Flights
         // UPDATES FLIGHTS FROM CSV FILE TO DATABASE
         [HttpPost]

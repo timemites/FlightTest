@@ -6,46 +6,54 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using FlightTestAPI.Models;
+using FlightTestAPI.Repository;
 
 namespace FlightTestAPI.Controllers
 {
     public class AvailabilityController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
+        //private ApplicationDbContext db = new ApplicationDbContext();
+        private IRepository _repository;
+        private IBookingRepository _BookRepository;
+        public AvailabilityController(IRepository repository, IBookingRepository bookRepository)
+        {
+            this._repository = repository;
+            this._BookRepository = bookRepository;
+        }
         // GET: api/Availability
         //http://localhost:63395/api/Availability?flightId=2&flightDate=2018-09-15&passenger=1
         [HttpGet]
         public int Get(int flightId, DateTime flightDate, int passenger)
         {
             
-            List<Flights> flights = new List<Flights>();
+            //List<Flights> flights = new List<Flights>();
 
-            //Fetch Flights from CSV file
-            string path = System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/");
-            string filePath = path + "Flights.csv";
-            string csvData = File.ReadAllText(filePath);
-            foreach (string row in csvData.Split('\n').Skip(1))
-            {
-                if (!string.IsNullOrEmpty(row))
-                {
-                    flights.Add(new Flights()
-                    {
-                        FlightId = Convert.ToInt32(row.Split(',')[0]),
-                        FlightNo = row.Split(',')[1],
-                        StartTime = DateTime.Parse(row.Split(',')[2]).TimeOfDay,
-                        EndTime = DateTime.Parse(row.Split(',')[3]).TimeOfDay,
-                        PassengerCapacity = Convert.ToInt32(row.Split(',')[4]),
-                        DepartureCity = row.Split(',')[5],
-                        ArrivalCity = row.Split(',')[6],
-                    });
-                }
-            }
+            ////Fetch Flights from CSV file
+            //string path = System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/");
+            //string filePath = path + "Flights.csv";
+            //string csvData = File.ReadAllText(filePath);
+            //foreach (string row in csvData.Split('\n').Skip(1))
+            //{
+            //    if (!string.IsNullOrEmpty(row))
+            //    {
+            //        flights.Add(new Flights()
+            //        {
+            //            FlightId = Convert.ToInt32(row.Split(',')[0]),
+            //            FlightNo = row.Split(',')[1],
+            //            StartTime = DateTime.Parse(row.Split(',')[2]).TimeOfDay,
+            //            EndTime = DateTime.Parse(row.Split(',')[3]).TimeOfDay,
+            //            PassengerCapacity = Convert.ToInt32(row.Split(',')[4]),
+            //            DepartureCity = row.Split(',')[5],
+            //            ArrivalCity = row.Split(',')[6],
+            //        });
+            //    }
+            //}
 
-            Flights flight = flights.FirstOrDefault(x => x.FlightId == flightId);
+            //Fetching Flights from Database
+            Flights flight = _repository.Get(flightId);
+
             //Fetch all Bookings on the Date
-            List<BookingDetails> bookings = db.BookingDetails
-                .Where(x => x.FlightId == flightId && x.BookingDate == flightDate)
+            List<BookingDetails> bookings = _BookRepository.Get().Where(x => x.FlightId == flightId && x.BookingDate == flightDate)
                 .ToList();
 
             int returnValue = flight.PassengerCapacity-bookings.Count;

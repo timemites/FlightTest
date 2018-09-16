@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightTest", "FlightTest\Fl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightTestAPI", "FlightTestAPI\FlightTestAPI.csproj", "{B54F4E2D-7318-468D-B4B4-E646A4938BDB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightTestApi.Tests", "FlightTestApi.Tests\FlightTestApi.Tests.csproj", "{7F271992-E934-474E-9B13-CBEF2727A008}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B54F4E2D-7318-468D-B4B4-E646A4938BDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B54F4E2D-7318-468D-B4B4-E646A4938BDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B54F4E2D-7318-468D-B4B4-E646A4938BDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F271992-E934-474E-9B13-CBEF2727A008}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F271992-E934-474E-9B13-CBEF2727A008}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F271992-E934-474E-9B13-CBEF2727A008}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F271992-E934-474E-9B13-CBEF2727A008}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
