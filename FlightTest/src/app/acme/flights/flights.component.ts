@@ -80,6 +80,8 @@ export class FlightsComponent implements OnInit {
     }
 
     this.loading=true
+    //console.log(this.passenger);
+
     this.flightService.getAvailability(this.flight, this.travelDate, this.passenger)
     .subscribe(data =>{
          this.passengerCapacity=data
@@ -138,6 +140,7 @@ export class FlightsComponent implements OnInit {
 
       this.bookingDetail.BookingDate = this.travelDate;
       this.bookingDetail.FlightId = this.flight;
+      this.bookingDetail.FlightName = this.selectedFlight;
       this.bookingDetail.FlightName = this.selectedFlight;
       this.bookingDetail.FirstName = this.FirstName1;
       this.bookingDetail.LastName = this.LastName1;

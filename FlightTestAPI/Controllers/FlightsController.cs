@@ -16,7 +16,9 @@ namespace FlightTestAPI.Controllers
     public class FlightsController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        // GET: api/Flights
+        // GET ALL FLIGHTS FROM CSV
+
+        //http://localhost:4200/Flight
         public IEnumerable<Flights> Get()
         {
             List<Flights> flights = new List<Flights>();
@@ -50,6 +52,7 @@ namespace FlightTestAPI.Controllers
         }
 
         // POST: api/Flights
+        // UPDATES FLIGHTS FROM CSV FILE TO DATABASE
         [HttpPost]
         public void Post(string value)
         {

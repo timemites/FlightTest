@@ -13,7 +13,8 @@ namespace FlightTestAPI.Controllers
     public class BookingController : ApiController
     {
          private ApplicationDbContext db = new ApplicationDbContext();
-        // GET: api/Booking
+        // GET ALL BOOKINGS
+        //http://localhost:4200/Booking
         public int Get()
         {
             int bookingId = 0;
@@ -30,6 +31,9 @@ namespace FlightTestAPI.Controllers
         }
 
         // POST: api/Booking
+        //http://localhost:4200/Booking/
+        //{FlightId: 3, BookingRefNo: "", FlightName: "Caloundra", BookingDate: "2018-09-30", FirstName: "Jamey",
+        //LastName="Fox", Email="jameyfox@email.com"}
         [HttpPost]
         public void Post(BookingDetails[] bookings )
         {
