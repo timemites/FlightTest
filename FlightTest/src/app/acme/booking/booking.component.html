@@ -1,0 +1,73 @@
+<div class="main-content containerPadding">
+ 
+  <div class="container" style="margin-left: 30px">
+    <!--Booking Search-->
+    <div class="row containerPadding" style="padding-top: 30px">
+      <div class="col-md-10 ">
+        <div class="card">
+
+          <div class="content">
+              <div class="row">
+                  <div class="col-sm-8">
+  
+                    <div class="form-group">
+                        <mat-form-field>
+                            <input style="font-size:20px" matInput (keyup)="applyFilter($event.target.value)" placeholder="Search By Name/ Destination/ Booking Ref">
+                          </mat-form-field>
+                    </div>
+                  </div>
+  
+                </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!--Bookings -->
+    <div class="row containerPadding">
+      <div class="col-md-10 ">
+        <div class="card">
+
+          <div class="content" style="padding-top: 30px;">
+              <div class="example-container mat-elevation-z8">
+                  <mat-table [dataSource]="dataSource" matSort>
+                
+                    <ng-container matColumnDef="BookingRefNo">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Booking Ref </mat-header-cell>
+                      <mat-cell *matCellDef="let row"> {{row.BookingRefNo}} </mat-cell>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="BookingDate">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Booking Date</mat-header-cell>
+                      <mat-cell *matCellDef="let row"> {{row.BookingDate | date:'dd MMM yyyy'}} </mat-cell>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="ArrivalCity">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Destination </mat-header-cell>
+                      <mat-cell *matCellDef="let row"> {{row.FlightName}} </mat-cell>
+                    </ng-container>
+                
+                   
+                    <ng-container matColumnDef="FirstName">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> First Name </mat-header-cell>
+                      <mat-cell *matCellDef="let row"> {{row.FirstName}} </mat-cell>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="LastName">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.LastName}}</mat-cell>
+                      </ng-container>
+                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns;">
+                      </mat-row>
+                    </mat-table>
+                
+                </div>
+            
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

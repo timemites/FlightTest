@@ -1,0 +1,220 @@
+<div>
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+
+    <div class="container">
+        <!--Flight Selection-->
+        <div class="row" style="background-color: #17a2b8; padding-left:70px; color:#fff;">
+            <div class="col-md-10">
+                <div class="card bg-info">
+
+                    <div class="content">
+                        <form #flightForm="ngForm" (ngSubmit)="getAvailability()">
+                            <div class="row" style="padding-bottom: 20px;"></div>
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6>Passengers</h6>
+                                    <div class="form-group">
+                                        <select class="form-control" [(ngModel)]="passenger" name="passenger" (change)='passenger=$event.target.value'>
+                                            <option [ngValue]="undefined" selected>Passengers</option>
+                                            <option value="1">1 passenger</option>
+                                            <option value="2">2 passengers</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <h6>Destination</h6>
+                                    <div class="form-group">
+                                        <select class="form-control" name="flight" [(ngModel)]="flight" (change)='setSelectedStatus($event.target.value)'>
+                                            <option [ngValue]="undefined" disabled selected>Please select</option>
+                                            <option [value]="flight.FlightId" [text]="flight.ArrivalCity" *ngFor="let flight of flightService.flightList">
+                                                {{flight.ArrivalCity}}</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <h6> Travel Date</h6>
+                                    <div class="form-group">
+                                        <input class="form-control" type="date" id="travelDate" name="travelDate" 
+                                        value="2018-09-17"  min="2018-09-15" [(ngModel)]="travelDate" (input)='travelDate=$event.target.value'>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-3">
+
+                                    <div class="form-group" style="padding-top:27px;">
+                                        <button type="submit" [disabled]="formValid()" (click)="getAvailability(bookingForm)"
+                                            class="btn btn-light btn-fill"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;
+                                            Search Flights</button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="clearfix"></div>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--Flight Availability-->
+        <div class="row containerPadding">
+            <div class="col-md-8  offset-md-3">
+                <div class="card">
+
+                    <div class="content">
+                        <br>
+                        <div *ngIf="!passengerCapacity==0 && !bookingConfirmed" class="col-md-12">
+
+                            <h5>Your Flight to {{selectedFlight}} on {{travelDate| date : 'dd MMM yyyy'}} is Available
+                            </h5>
+                            <p style="padding-left: 20px; font-size: 14px;">Please enter your booking details</p>
+                        </div>
+                        <div class="col-md-12" *ngIf="passengerCapacity==0 && !bookingConfirmed">
+
+                            <h5 style="color:#e50000">Sorry All Flights to {{selectedFlight}} on {{travelDate| date : 'dd MMM yyyy'}} are sold out 
+                            </h5>
+                           
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <!--Flight Booking-->
+        <div class="row  containerPadding" *ngIf="!passengerCapacity==0 && !bookingConfirmed">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+
+                    <div class="content">
+                        <form #bookingForm="ngForm">
+                            <div class="row" style="padding-bottom: 20px;"></div>
+                            <!--Passenger 1-->
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <h6 style="padding-top: 10px">Passenger 1</h6>
+
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="First Name" id="FirstName1" name="FirstName1"
+                                            [(ngModel)]="FirstName1">
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="Last Name" id="LastName1" name="LastName1"
+                                            [(ngModel)]="LastName1">
+
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="Email" id="Email1" name="Email1"
+                                            [(ngModel)]="Email1">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!--Passenger 2-->
+                            <div class="row" *ngIf="passenger>1">
+                                <div class="col-sm-2">
+                                    <h6 style="padding-top: 10px">Passenger 2</h6>
+
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="First Name" id="FirstName2" name="FirstName2"
+                                            [(ngModel)]="FirstName2">
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="Last Name" id="LastName2" name="LastName2"
+                                            [(ngModel)]="LastName2">
+
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="Email" id="Email2" name="Email2"
+                                            [(ngModel)]="Email2">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row" style="padding-right:40px;">
+                                <div class="col-md-10 offset-md-10">
+
+                                    <div class="form-group">
+                                        <button type="submit" [disabled]="bookingFormInvalid()" (click)="postBooking()"
+                                            class="btn btn-info btn-fill"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;
+                                            Book Now</button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="clearfix"></div>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--Flight Confirmed-->
+        <div class="row containerPadding" *ngIf="bookingConfirmed">
+            <div class="col-md-8 offset-md-3">
+                <div class="card">
+
+                    <div class="content">
+                        <div class="col-sm-9">
+                            <h4 style="text-align: center">Thank you for Booking your Flight to {{selectedFlight}} on {{travelDate| date : 'dd MMM
+                                yyyy'}}
+                            </h4>
+                            <p style="padding-left: 20px; font-size: 14px;">please review your booking details </p>
+                        </div>
+                        <!--Passenger 1-->
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <h5 style="padding-top: 5px">Passenger 1</h5>
+                                <p style="font-size:14px"><b>First Name: </b>{{FirstName1}}</p>
+                                <p style="font-size:14px"><b>Last Name: </b>{{LastName1}}</p>
+                                <p style="font-size:14px"><b>Email Name: </b>{{Email1}}</p>
+
+                            </div>
+                            <div class="col-sm-4" *ngIf="passenger>1">
+                                <h5 style="padding-top: 5px">Passenger 2</h5>
+                                <p style="font-size:14px"><b>First Name: </b>{{FirstName2}}</p>
+                                <p style="font-size:14px"><b>Last Name: </b>{{LastName2}}</p>
+                                <p style="font-size:14px"><b>Email Name: </b>{{Email2}}</p>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

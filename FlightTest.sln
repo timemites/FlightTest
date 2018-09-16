@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightTest", "FlightTest\FlightTest.csproj", "{942B1B55-3D01-44BA-B0BE-2EC2E8118187}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightTestAPI", "FlightTestAPI\FlightTestAPI.csproj", "{B54F4E2D-7318-468D-B4B4-E646A4938BDB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{942B1B55-3D01-44BA-B0BE-2EC2E8118187}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{942B1B55-3D01-44BA-B0BE-2EC2E8118187}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{942B1B55-3D01-44BA-B0BE-2EC2E8118187}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{942B1B55-3D01-44BA-B0BE-2EC2E8118187}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B54F4E2D-7318-468D-B4B4-E646A4938BDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B54F4E2D-7318-468D-B4B4-E646A4938BDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B54F4E2D-7318-468D-B4B4-E646A4938BDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B54F4E2D-7318-468D-B4B4-E646A4938BDB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B7CF3D45-FE5B-4C4E-92E5-63132AEC0AB3}
+	EndGlobalSection
+EndGlobal

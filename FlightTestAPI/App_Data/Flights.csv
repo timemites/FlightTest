@@ -1,0 +1,5 @@
+Flight Id,Flight #,Start Time,End Time,Passenger Capacity,Departure,Arrival
+1,ACME01,8:00,9:00,25,Melbourne,Taradale
+2,ACME02,10:00,11:00,25,Melbourne,RedCliffe
+3,ACME03,15:00,16:00,25,Melbourne,Caloundra
+4,ACME04,20:00,21:00,25,Melbourne,Foul Bay
